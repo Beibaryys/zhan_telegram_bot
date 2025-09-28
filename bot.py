@@ -1,5 +1,5 @@
+# bot.py
 import os
-import asyncio
 from telegram import Update, ChatPermissions
 from telegram.ext import Application, CommandHandler, ContextTypes
 
@@ -61,15 +61,15 @@ async def open_chat(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
 
-async def main():
+def main():
     app = Application.builder().token(TOKEN).build()
 
     app.add_handler(CommandHandler("close", close_chat))
     app.add_handler(CommandHandler("open", open_chat))
 
     print("✅ Бот запущен...")
-    await app.run_polling()
+    app.run_polling()  # <- без asyncio.run()
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
